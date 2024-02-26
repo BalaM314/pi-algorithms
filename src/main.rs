@@ -13,12 +13,12 @@ trait DirectPiCalc {
 	fn get_pi(depth:i32) -> f64;
 }
 
-struct BaselPiCalculator {
+struct BaselPiCalc {
 	iterations: i128,
 	sum: f64,
 }
 
-impl IterativePiCalc for BaselPiCalculator {
+impl IterativePiCalc for BaselPiCalc {
 	fn new() -> Self {
 		Self {
 			iterations: 0,
@@ -38,12 +38,12 @@ impl IterativePiCalc for BaselPiCalculator {
 	fn iterations(&self) -> i128 { self.iterations }
 }
 
-struct OddRecipPiCalculator {
+struct LeibnizPiCalc {
 	sum: f64,
 	x: i128,
 }
 
-impl IterativePiCalc for OddRecipPiCalculator {
+impl IterativePiCalc for LeibnizPiCalc {
 	fn new() -> Self {
 		Self {
 			x: 1,
