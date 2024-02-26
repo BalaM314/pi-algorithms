@@ -91,8 +91,11 @@ fn main() {
 	let calcs: [Box<dyn IterativePiCalc>; 3] = [Box::new(BaselPiCalc::new()), Box::new(LeibnizPiCalc::new()), Box::new(NilakanthaPiCalc::new())];
 	for mut calc in calcs {
 		let now = Instant::now();
-		for _ in 0..10_000_000 {
-			calc.update();
+		loop {
+			for _ in 0..10_000 {
+				calc.update();
+			}
+			if now.elapsed().as_nanos() > 1_000_000_000 { break; }
 		}
 		println!("{:3} iterations: {}", calc.iterations(), calc.get_pi());
 		println!("{:#?}", now.elapsed());
