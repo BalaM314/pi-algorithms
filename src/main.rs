@@ -63,9 +63,32 @@ impl IterativePiCalc for LeibnizPiCalc {
 	fn iterations(&self) -> i128 { (self.x.abs() - 1) / 2 }
 }
 
+struct NilakanthaPiCalc {
+	sum: f64,
+	i: i128,
+}
+impl IterativePiCalc for NilakanthaPiCalc {
+	fn new() -> Self {
+		Self {
+			sum: 0.75,
+			i: -2,
+		}
+	}
+	fn update(&mut self) { //updates twice
+		self.i += 4;
+		self.sum += 1. / ((self.i) * (self.i + 1) * (self.i + 2)) as f64 - 1. / ((self.i + 2) * (self.i + 3) * (self.i + 4)) as f64;
+	}
+	fn get_pi(&self) -> f64 {
+		self.sum * 4.
+	}
+	fn iterations(&self) -> i128 {
+		self.i
+	}
+}
+
 
 fn main() {
-	let calcs: [Box<dyn IterativePiCalc>; 2] = [Box::new(BaselPiCalculator::new()), Box::new(OddRecipPiCalculator::new())];
+	let calcs: [Box<dyn IterativePiCalc>; 3] = [Box::new(BaselPiCalc::new()), Box::new(LeibnizPiCalc::new()), Box::new(NilakanthaPiCalc::new())];
 	for mut calc in calcs {
 		let now = Instant::now();
 		for _ in 0..10_000_000 {
